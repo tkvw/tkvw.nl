@@ -27,7 +27,7 @@ export const Index = () => {
             rel="noopener noreferrer"
           >
             {' '}
-            If you like Nx, please give it a *:
+            If you like Nx, please give it a star:
             <div className="github-star-badge">
               <img src={star} className="material-icons" alt="" />
               Star
