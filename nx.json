@@ -5,10 +5,6 @@
   },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
@@ -21,5 +17,13 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "www": {
+      "tags": []
+    },
+    "www-e2e": {
+      "tags": [],
+      "implicitDependencies": ["www"]
+    }
+  }
 }
