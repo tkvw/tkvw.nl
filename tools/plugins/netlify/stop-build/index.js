@@ -1,11 +1,16 @@
 module.exports = {
   onPreBuild: ({ utils }) => {
+    const disableStopBuildPlugin = process.env.DISABLE_STOP_BUILD_PLUGIN;
+    if(disableStopBuildPlugin){
+      console.log('Stop build plugin is disabled using the environment variable "DISABLE_STOP_BUILD_PLUGIN"')
+      return;
+    }
+
     const currentProject = process.env.PROJECT_NAME;
     if(!currentProject){
       utils.build.failBuild(`Build failed because a environment variable named "PROJECT_NAME" is required.`)
     }
     const lastDeployedCommit = process.env.CACHED_COMMIT_REF;
-    console.log(`CACHED_COMMIT_REF: ${process.env.CACHED_COMMIT_REF}`);
     const latestCommit = 'HEAD';
     const projectHasChanged = projectChanged(
       currentProject,
@@ -26,6 +31,5 @@ function projectChanged(currentProject, fromHash, toHash) {
   const output = execSync(getAffected).toString();
   //get the list of changed projects from the output
   const changedProjects = JSON.parse(output).projects;
-  console.log(changedProjects);
   return !!changedProjects.find(project => project === currentProject);
 }
