@@ -1,6 +1,9 @@
 module.exports = {
-  onInit: ({ utils }) => {
+  onPreBuild: ({ utils }) => {
     const currentProject = process.env.PROJECT_NAME;
+    if(!currentProject){
+      utils.build.failBuild(`Build failed because a environment variable named "PROJECT_NAME" is required.`)
+    }
     const lastDeployedCommit = process.env.CACHED_COMMIT_REF;
     const latestCommit = 'HEAD';
     const projectHasChanged = projectChanged(
